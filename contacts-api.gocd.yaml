@@ -35,11 +35,6 @@ pipelines:
           jobs:
             build:
               tasks:
-                - fetch:
-                   pipeline: api-compile
-                   stage: build
-                   job: build
-                   source: build
                 - exec:
                    command: bash
                    arguments:
