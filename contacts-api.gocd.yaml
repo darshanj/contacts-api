@@ -107,7 +107,7 @@ pipelines:
                    command: bash
                    arguments:
                      - "-c"
-                     - "sed \"s/CONTACTS_API_IMAGE/`cat contacts-api-image-version.txt`/g\" -i deployment/pipeline-configs/contacts-api-deployment.yml"
+                     - "sed -e \"s|CONTACTS_API_IMAGE|`cat contacts-api-image-version.txt`|\" -i deployment/pipeline-configs/contacts-api-deployment.yml"
                 - exec:
                    command: bash
                    arguments:
