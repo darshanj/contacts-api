@@ -74,6 +74,14 @@ pipelines:
                    arguments:
                      - "-c"
                      - "docker push ${DOCKERHUB_USER}/`cat contacts-api-version.txt`"
+                - exec:
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "echo ${DOCKERHUB_USER}/`cat contacts-api-version.txt` > contacts-api-image-version.txt"
+              artifacts:
+                - build:
+                    source: contacts-api-image-version.txt
               resources:
                 - docker
   api-deploy:
@@ -91,15 +99,15 @@ pipelines:
               tasks:
                 - fetch:
                    pipeline: api-package
-                   stage: build
-                   job: build
+                   stage: publish
+                   job: publish
                    is_file: yes
-                   source: contacts-api-version.txt
+                   source: contacts-api-image-version.txt
                 - exec:
                    command: bash
                    arguments:
                      - "-c"
-                     - "sed \"s/CONTACTS_API_IMAGE/`cat contacts-api-version.txt`/g\" -i deployment/pipeline-configs/contacts-api-deployment.yml"
+                     - "sed \"s/CONTACTS_API_IMAGE/`cat contacts-api-image-version.txt`/g\" -i deployment/pipeline-configs/contacts-api-deployment.yml"
                 - exec:
                    command: bash
                    arguments:
