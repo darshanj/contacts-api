@@ -18,3 +18,4 @@ npm start
 ## Contributing
 
 Apart from the steps in Up and Running section use `npm test` to run tests and `npm run nodemon` to start the server using [nodemon](https://github.com/remy/nodemon)
+
