@@ -113,5 +113,10 @@ pipelines:
                    arguments:
                      - "-c"
                      - "kubectl apply -f deployment/pipeline-configs/contacts-api-deployment.yml --validate=false"
+                - exec:
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "kubectl apply -f deployment/pipeline-configs/contacts-api-service.yml --validate=false
               resources:
                 - deployer
