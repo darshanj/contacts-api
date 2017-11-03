@@ -91,7 +91,7 @@ pipelines:
         pipeline: api-package
         stage: publish
       mygit:
-        git: https://github.com/ckaushik/KubernetesWorkshop.git
+        git: https://github.com/darshanj/pipeline-configs.git
     stages:
       - deploy:
           jobs:
