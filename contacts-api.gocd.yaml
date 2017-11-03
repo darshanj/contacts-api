@@ -107,16 +107,16 @@ pipelines:
                    command: bash
                    arguments:
                      - "-c"
-                     - "sed -e \"s|CONTACTS_API_IMAGE|`cat contacts-api-image-version.txt`|\" -i deployment/pipeline-configs/contacts-api-deployment.yml"
+                     - "sed -e \"s|CONTACTS_API_IMAGE|`cat contacts-api-image-version.txt`|\" -i contacts-api-deployment.yml"
                 - exec:
                    command: bash
                    arguments:
                      - "-c"
-                     - "kubectl apply -f deployment/pipeline-configs/contacts-api-deployment.yml --validate=false"
+                     - "kubectl apply -f contacts-api-deployment.yml --validate=false"
                 - exec:
                    command: bash
                    arguments:
                      - "-c"
-                     - "kubectl apply -f deployment/pipeline-configs/contacts-api-service.yml --validate=false"
+                     - "kubectl apply -f contacts-api-service.yml --validate=false"
               resources:
                 - deployer
