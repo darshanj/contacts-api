@@ -1,7 +1,7 @@
 environments:
   contacts-db-docker:
     pipelines:
-      - db-package
+      - db-install
 
 pipelines:
   db-install:
