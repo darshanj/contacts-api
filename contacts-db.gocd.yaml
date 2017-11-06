@@ -1,0 +1,23 @@
+environments:
+  contacts-api-docker:
+    pipelines:
+      - db-package
+
+pipelines:
+  db-install:
+    group: contacts-app
+    materials:
+      mygit:
+        git: https://github.com/darshanj/pipeline-configs.git
+    stages:
+      - deploy:
+          jobs:
+            build:
+              tasks:
+                - exec:
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "kubectl apply -f postgres.yml --validate=false"
+              resources:
+                - deployer
