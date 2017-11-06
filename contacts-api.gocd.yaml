@@ -2,6 +2,8 @@ environments:
   contacts-api-docker:
     pipelines:
       - api-package
+      - api-deploy
+      - api-compile
 
 pipelines:
   api-compile:
