@@ -2,6 +2,7 @@ environments:
   contacts-api-docker:
     pipelines:
       - api-package
+      - api-deploy
       - api-compile
 
 pipelines:
@@ -85,3 +86,39 @@ pipelines:
                     source: contacts-api-image-version.txt
               resources:
                 - docker
+  api-deploy:
+    group: contacts-app
+    materials:
+      packaging:
+        pipeline: api-package
+        stage: publish
+      mygit:
+        git: https://github.com/darshanj/pipeline-configs.git
+    stages:
+      - deploy:
+          jobs:
+            build:
+              tasks:
+                - fetch:
+                   pipeline: api-package
+                   stage: publish
+                   job: publish
+                   is_file: yes
+                   source: contacts-api-image-version.txt
+                - exec:
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "sed -e \"s|CONTACTS_API_IMAGE|`cat contacts-api-image-version.txt`|\" -i contacts-api-deployment.yml"
+                - exec:
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "kubectl apply -f contacts-api-deployment.yml --validate=false"
+                - exec:
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "kubectl apply -f contacts-api-service.yml --validate=false"
+              resources:
+                - deployer
